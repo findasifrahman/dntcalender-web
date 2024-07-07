@@ -1,0 +1,100 @@
+
+<div class="card" style="margin-top: 20px;margin-left: 0;background-color: rgba(2, 2, 2, 0.9);">
+    <div class="card-body" style="text-align: center;color:blanchedalmond;">
+        Add Foreign Student Course
+    </div>
+</div>
+<br />
+
+
+<form class="example-container" [formGroup]="Forms2">
+  <div fxLayout="row wrap" fxLayout.xs="column"  fxLayoutAlign="space-between stretch" style="margin-top: 5px;">
+    <div class="d-flex flex-column bd-highlight mb-5" fxFlex="99" fxFlex.lt-lg="19" >
+        <mat-form-field>
+          <mat-label>Country Name</mat-label>
+          <select matNativeControl formControlName="countryName" name="countryName" required>   
+            <option *ngFor="let car of countryName_arr" [value]="car">
+              {{car}}
+            </option>
+          </select>
+          <mat-error *ngIf="selectFormControl.hasError('required')">
+            This field is required
+          </mat-error>
+          <mat-hint>Country Name</mat-hint>
+        </mat-form-field>
+
+
+    </div>
+  </div>
+  <div fxLayout="row wrap" fxLayout.xs="column"  fxLayoutAlign="space-between stretch" style="margin-top: 1px;padding-top: 0 !important; padding-bottom: 0 !important;">
+      <div class="d-flex flex-column bd-highlight mb-5" fxFlex="18" fxFlex.lt-lg="19" >
+        <mat-form-field floatLabel="options.value.floatLabel">
+          <input matInput type="Text"  formControlName="courseName" placeholder="Course Name">
+        </mat-form-field>
+      </div>
+      <div class="d-flex flex-column bd-highlight mb-5" fxFlex="14" fxFlex.lt-lg="19" >
+        <mat-form-field floatLabel="options.value.floatLabel">
+          <input matInput type="date" formControlName="startDate"  placeholder="startDate">
+        </mat-form-field>
+      </div>
+      <div class="d-flex flex-column bd-highlight mb-5" fxFlex="14" fxFlex.lt-lg="19" >
+        <mat-form-field floatLabel="options.value.floatLabel">
+        <input matInput type="date" formControlName="endDate" placeholder="endDate">
+        </mat-form-field>
+      </div>
+      <div class="d-flex flex-column bd-highlight mb-5" fxFlex="9" fxFlex.lt-lg="19" >
+        <mat-form-field floatLabel="options.value.floatLabel">
+          <input matInput type="number" formControlName="duration" placeholder="duration">
+        </mat-form-field>
+      </div>
+      <div class="d-flex flex-column bd-highlight mb-5" fxFlex="10" fxFlex.lt-lg="19" >
+        <mat-form-field floatLabel="options.value.floatLabel">
+          <input matInput type="text" formControlName="remarks" placeholder="remarks">
+        </mat-form-field>
+      </div>
+      <div class="d-flex flex-column bd-highlight mb-5" fxFlex="13" fxFlex.lt-lg="19" >
+        <mat-form-field floatLabel="options.value.floatLabel">
+          <input matInput type="number"  formControlName="noOfCandidates" placeholder="No of Candidate" readonly>
+        </mat-form-field>
+      </div>
+      <div fxLayout="row wrap" fxLayout.xs="column"  fxLayoutAlign="space-between stretch" style="margin-top: 1px;padding-top: 0 !important; padding-bottom: 0 !important;">
+        <div class="d-flex flex-column bd-highlight mb-5" fxFlex="10" fxFlex.lt-lg="19" >
+          <mat-form-field floatLabel="options.value.floatLabel">
+            <input matInput type="number" formControlName="noOfOficer" placeholder="No of Officer">
+          </mat-form-field>
+        </div>
+
+        <div class="d-flex flex-column bd-highlight mb-5" fxFlex="10" fxFlex.lt-lg="19" >
+          <mat-form-field floatLabel="options.value.floatLabel">
+            <input matInput type="number" formControlName="noOfSailor" placeholder="no of Sailor">
+          </mat-form-field>
+        </div>
+        <div class="d-flex flex-column bd-highlight mb-5" fxFlex="14" fxFlex.lt-lg="19" >
+          <mat-form-field floatLabel="options.value.floatLabel">
+            <input matInput type="number" formControlName="noOfInterService" placeholder="No of InterService">
+          </mat-form-field>
+        </div>
+        <div class="d-flex flex-column bd-highlight mb-5" fxFlex="11" fxFlex.lt-lg="19" >
+          <mat-form-field floatLabel="options.value.floatLabel">
+            <input matInput type="number" formControlName="noOfCivilian" placeholder="No of Civilian">
+          </mat-form-field>
+        </div>
+
+        <div class="d-flex flex-column bd-highlight mb-5" fxFlex="10" fxFlex.lt-lg="19" >
+          <mat-form-field floatLabel="options.value.floatLabel">
+            <input matInput type="number" formControlName="noOfCadet" placeholder="No of Cadet">
+          </mat-form-field>
+        </div>
+        <div class="d-flex flex-column bd-highlight mb-5" fxFlex="16" fxFlex.lt-lg="19" >
+          <mat-form-field floatLabel="options.value.floatLabel">
+            <input matInput type="number" formControlName="noOfMidShipman" placeholder="No of MidShipman">
+          </mat-form-field>
+        </div>
+
+      </div>
+  </div>
+</form>
+
+<div class="input-group btn-group">
+  <button type="submit" (click)="FormSubmit()" class="form-control btn" style="height:40px;width:425px;background-color:black;color:whitesmoke" [disabled]="!Forms2.valid">Submit</button>
+</div>

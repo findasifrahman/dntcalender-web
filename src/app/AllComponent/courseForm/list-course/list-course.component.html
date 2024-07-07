@@ -1,0 +1,58 @@
+
+<div fxLayout fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+      <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12">
+      <mat-table [dataSource]="AllElement" multiTemplateDataRows class="mat-elevation-z8">
+        <!-- Position Column -->
+        <ng-container matColumnDef="schoolName">
+          <mat-header-cell *matHeaderCellDef> School Name </mat-header-cell>
+          <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.schoolName}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="courseName">
+          <mat-header-cell *matHeaderCellDef> Course </mat-header-cell>
+          <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.courseName}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="noOfCandidates">
+          <mat-header-cell *matHeaderCellDef> Total Candidate </mat-header-cell>
+          <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.noOfCandidates}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="startDate">
+          <mat-header-cell *matHeaderCellDef> Start </mat-header-cell>
+          <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.startDate | date: 'dd/MM/yyyy'}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="endDate">
+          <mat-header-cell *matHeaderCellDef> End </mat-header-cell>
+          <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.endDate | date: 'dd/MM/yyyy'}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="buttons">
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let AllElement" (click)="$event.stopPropagation()">
+            <button mat-button color="warn" (click)="onDelete(AllElement.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-button color="warn" (click)="onUpdate(AllElement.id)">
+              <mat-icon>update</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row style="background-color:black" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  
+      </mat-table>
+      <mat-paginator [pageSize]="10" [pageSizeOptions]="[2, 4, 6, 10, 20]"></mat-paginator>
+    </div>
+  </div>
+  
+  <br />
+  <br />
+  
+  
+  
+  
+  

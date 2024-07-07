@@ -1,0 +1,269 @@
+<div class="card" style="margin-top: 20px;margin-left: 0;background-color: rgba(2, 2, 2, 0.9);">
+    <div class="card-body" style="text-align: center;color:blanchedalmond;">
+       Foreign / Abroad Course Calender
+    </div>
+</div>
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between stretch" style="margin-left: 0px;">
+  <div class="mb10" fxFlex="24" fxFlex.lt-lg="49">
+    <mat-form-field>
+      <mat-label>Select Country</mat-label>
+      <mat-select #select [ngModel]="selectedItem"  (ngModelChange)="selectChanged($event)" multiple>
+        <div class="select-all">
+            <mat-checkbox [(ngModel)]="allSelected"
+                            [ngModelOptions]="{standalone: true}"
+                            (change)="toggleAllSelection()">Select All</mat-checkbox>
+        </div>
+        <mat-option *ngFor="let car of  countryName_arr " [value]="car">
+          {{car}}
+        </mat-option>
+      </mat-select>
+
+      <mat-hint>Country Name</mat-hint>
+    </mat-form-field>
+  </div>
+  <div class="mb10" fxFlex="24" fxFlex.lt-lg="49">
+    <mat-form-field >
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="date1"> 
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="mb10" fxFlex="24" fxFlex.lt-lg="49">
+    <button mat-raised-button class="extraWidth" (click) ="yesterClick()">Yesterday</button>
+  </div>
+  <div class="mb10" fxFlex="24" fxFlex.lt-lg="49">
+      <button mat-raised-button class="extraWidth" style="color: brown;" (click)="onSubmit()">Submit</button>
+  </div>
+</div>
+
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between stretch" style="margin-left: 0px;">
+  <div class="mb10" fxFlex="24" fxFlex.lt-lg="49">
+    <button mat-raised-button class="extraWidth" printSectionId="print-section2"  
+      ngxPrint >Print Header</button>
+  </div>
+  <div class="mb10" fxFlex="35" fxFlex.lt-lg="49">
+      <button mat-raised-button class="extraWidth" style="color: brown;" (click)="exporter.exportTable('csv')">Print Officer Trainee List</button>
+  </div>
+
+  <div class="mb10" fxFlex="35" fxFlex.lt-lg="49">
+    <button mat-raised-button class="extraWidth" style="color: black;" (click)="exporter2.exportTable('csv')">Print Other Trainee</button>
+  </div>
+</div>
+
+<fieldset class="scheduler-border">
+  <legend class="scheduler-border">Types</legend>
+    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between stretch" style="margin-left: 0px;">
+      <div  class="mb10" fxFlex="99" fxFlex.lt-lg="14" style="color: black;margin-top: 20px; text-align: center;justify-content: center;font-size: 18px;color:indianred;">
+        Total Trainee: {{totalTrainee}}
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between stretch" style="margin-left: 0px;">
+        <div  class="mb10" fxFlex="13" fxFlex.lt-lg="12" style="color: orangered;margin-top: 20px;">
+          Officer: {{numofOfficer}}
+        </div>
+        <div  class="mb10" fxFlex="13" fxFlex.lt-lg="14" style="color: black;margin-top: 20px">
+          Sailor: {{numofSoldier}}
+        </div>
+        <div  class="mb10" fxFlex="13" fxFlex.lt-lg="14" style="color: black;margin-top: 20px">
+          Civilian: {{numofCivilian}}
+        </div>
+        <div  class="mb10" fxFlex="15" fxFlex.lt-lg="18" style="color: black;margin-top: 20px;">
+          InterService: {{numofInterService}}
+        </div>
+
+        <div  class="mb10" fxFlex="12" fxFlex.lt-lg="14" style="color: black;margin-top: 20px;">
+          Cadet: {{numofCadet}}
+        </div>
+        <div  class="mb10" fxFlex="14" fxFlex.lt-lg="14" style="color: black;margin-top: 20px;">
+          Midshipman: {{numofMidShipman}}
+        </div>
+    </div>
+</fieldset>
+
+<fieldset class="scheduler-border">
+  <legend class="scheduler-border" style="color:orangered;" >Officer Trainee</legend>
+    <div fxLayout fxLayoutAlign="center center">
+      <mat-form-field fxFlex="40%">
+        <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <mat-table [dataSource]="AllElement" matTableExporter #exporter="matTableExporter" multiTemplateDataRows class="mat-elevation-z8">
+          <!-- Position Column -->
+          <ng-container matColumnDef="courseName">
+            <mat-header-cell *matHeaderCellDef> Course Name </mat-header-cell>
+            <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.courseName}} ({{Element.countryName}})  </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="noOfCandidates">
+            <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+            <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.noOfCandidates}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="noOfOficer">
+            <mat-header-cell *matHeaderCellDef> Officer </mat-header-cell>
+            <mat-cell style="color:yellow" *matCellDef="let Element"> {{Element.noOfOficer}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="noOfSailor">
+            <mat-header-cell *matHeaderCellDef> Sailor </mat-header-cell>
+            <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.noOfSailor}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="noOfInterService">
+            <mat-header-cell *matHeaderCellDef> Inter Services </mat-header-cell>
+            <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.noOfInterService}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="noOfCivilian">
+            <mat-header-cell *matHeaderCellDef> Civilian </mat-header-cell>
+            <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.noOfCivilian}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="noOfCadet">
+            <mat-header-cell *matHeaderCellDef> Cadet</mat-header-cell>
+            <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.noOfCadet}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="noOfForeigner">
+            <mat-header-cell *matHeaderCellDef> Foreigner</mat-header-cell>
+            <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.noOfForeigner}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="noOfMidShipman">
+            <mat-header-cell *matHeaderCellDef>MidShipman</mat-header-cell>
+            <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.noOfMidShipman}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="start">
+            <mat-header-cell *matHeaderCellDef> Start </mat-header-cell>
+            <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.date}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="end">
+            <mat-header-cell *matHeaderCellDef> End </mat-header-cell>
+            <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.endDate}} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="duration">
+            <mat-header-cell *matHeaderCellDef> Duration </mat-header-cell>
+            <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.duration}} </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+          <mat-row style="background-color:black;border-color: whitesmoke;" *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+        </mat-table>
+        <mat-paginator [pageSize]="10" [pageSizeOptions]="[2, 4, 6, 10, 20]"></mat-paginator>
+      </div>
+    </div>
+</fieldset>
+
+<fieldset class="scheduler-border"> 
+    <legend class="scheduler-border">Other Trainee</legend>
+    <div fxLayout fxLayoutAlign="center center">
+      <mat-form-field fxFlex="40%">
+        <input matInput type="text" (keyup)="doFilter1($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+    </div>
+      <div class="row">
+        <div class="col-md-12">
+          <mat-table [dataSource]="AllElement2" matTableExporter #exporter2="matTableExporter" multiTemplateDataRows class="mat-elevation-z8">
+            <!-- Position Column -->
+            <ng-container matColumnDef="courseName">
+              <mat-header-cell *matHeaderCellDef> Course Name </mat-header-cell>
+              <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.courseName}} ({{Element.countryName}}) </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="noOfCandidates">
+              <mat-header-cell *matHeaderCellDef> Total </mat-header-cell>
+              <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.noOfCandidates}} </mat-cell>
+            </ng-container>
+  
+            <ng-container matColumnDef="noOfSailor">
+              <mat-header-cell *matHeaderCellDef> Sailor </mat-header-cell>
+              <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.noOfSailor}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="noOfInterService">
+              <mat-header-cell *matHeaderCellDef> Inter Services </mat-header-cell>
+              <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.noOfInterService}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="noOfCivilian">
+              <mat-header-cell *matHeaderCellDef> Civilian </mat-header-cell>
+              <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.noOfCivilian}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="noOfCadet">
+              <mat-header-cell *matHeaderCellDef> Cadet</mat-header-cell>
+              <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.noOfCadet}} </mat-cell>
+            </ng-container>
+  
+            <ng-container matColumnDef="noOfMidShipman">
+              <mat-header-cell *matHeaderCellDef>'Midshipman</mat-header-cell>
+              <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.noOfMidShipman}} </mat-cell>
+            </ng-container>
+  
+            <ng-container matColumnDef="start">
+              <mat-header-cell *matHeaderCellDef> Start </mat-header-cell>
+              <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.date}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="end">
+              <mat-header-cell *matHeaderCellDef> End </mat-header-cell>
+              <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.endDate}} </mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="duration">
+              <mat-header-cell *matHeaderCellDef> Duration </mat-header-cell>
+              <mat-cell style="color:whitesmoke" *matCellDef="let Element"> {{Element.duration}} </mat-cell>
+            </ng-container>
+  
+            <mat-header-row *matHeaderRowDef="displayedColumns2; sticky: true"></mat-header-row>
+            <mat-row  style="background-color:black;border-color: whitesmoke;"  *matRowDef="let row; columns: displayedColumns2;"></mat-row>
+  
+          </mat-table>
+          <mat-paginator [pageSize]="10" [pageSizeOptions]="[2, 4, 6, 10, 20, 50, 100]"></mat-paginator>
+        </div>
+      </div>
+  
+  </fieldset>
+
+
+
+  <div id="print-section2" [hidden]="headerhide">
+    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between stretch" style="margin-left: 0px;">
+      <div  class="mb10" fxFlex="99" fxFlex.lt-lg="14" style="color: black;margin-top: 20px; text-align: center;justify-content: center;font-size: 30px;color:indianred;">
+        Total Trainee: {{totalTrainee}}
+      </div>
+    </div>
+    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between stretch" style="margin-left: 0px;">
+        <div  class="mb10" fxFlex="96" fxFlex.lt-lg="12" style="color: orangered;font-weight: bold;margin-top: 50px;font-size: 24px;">
+          Officer: {{numofOfficer}}
+        </div>
+    </div>
+
+    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between stretch" style="margin-left: 0px;">
+    
+        <div  class="mb10" fxFlex="96" fxFlex.lt-lg="14" style="color: black;margin-top: 30px;font-size: 24px;">
+          Sailor: {{numofSoldier}}
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between stretch" style="margin-left: 0px;">
+    
+      
+        <div  class="mb10" fxFlex="96" fxFlex.lt-lg="14" style="color: black;margin-top: 30px; font-size: 24px;">
+          Civilian: {{numofCivilian}}
+        </div>
+        
+    </div>
+    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between stretch" style="margin-left: 0px;">
+    
+        <div  class="mb10" fxFlex="96" fxFlex.lt-lg="14" style="color: black;margin-top: 30px;font-size: 24px;">
+          InterService: {{numofInterService}}
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between stretch" style="margin-left: 0px;">
+    
+      
+        <div  class="mb10" fxFlex="96" fxFlex.lt-lg="14" style="color: black;margin-top: 30px;font-size: 24px;">
+          Cadet: {{numofCadet}}
+        </div>
+    </div>
+    <div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-between stretch" style="margin-left: 0px;">
+    
+      
+        <div  class="mb10" fxFlex="96" fxFlex.lt-lg="14" style="color: black;margin-top: 30px;font-size: 24px;">
+          Midshipman: {{numofMidShipman}}
+          
+        </div>
+    </div>
+</div>

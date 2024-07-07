@@ -1,0 +1,87 @@
+
+<div class="card" style="margin-top: 20px;margin-left: 0;background-color: rgba(2, 2, 2, 0.9);">
+    <div class="card-body" style="text-align: center;color:blanchedalmond;">
+        Add Event
+    </div>
+</div>
+<br />
+<div class="example-container" >
+  <div fxLayout="row wrap" fxLayout.xs="column"  fxLayoutAlign="space-between stretch" style="margin-top: 1px;padding-top: 0 !important; padding-bottom: 0 !important;">
+        <div class="d-flex flex-column bd-highlight mb-5" fxFlex="30" fxFlex.lt-lg="19" >
+          <app-select-search [formControlnam]="'ddayevent'" [preVal]="selectsearchval1" (outputval)="SelectvalChanged1($event)"  [list]= "template_arr"></app-select-search>            
+        </div>
+        <div class="d-flex flex-column bd-highlight mb-5" fxFlex="55" fxFlex.lt-lg="19" >
+          <div class="input-group btn-group">
+            <button type="submit" (click)="TemplateSubmit()" class="form-control btn" style="height:50px;width:425px;background-color:black;color:whitesmoke" >Add From Template</button>
+          </div>
+        </div>
+  </div>
+</div>
+<div class="example-container" *ngIf="!DayTemplateSubmitHide">
+  <div fxLayout="row wrap" fxLayout.xs="column"  fxLayoutAlign="space-between stretch" style="margin-top: 1px;padding-top: 0 !important; padding-bottom: 0 !important;">
+    <div class="d-flex flex-column bd-highlight mb-5" fxFlex="22" fxFlex.lt-lg="19" >
+      <mat-form-field floatLabel="options.value.floatLabel">
+        <mat-label>Dday</mat-label>
+        <input matInput placeholder="dday" type="date" (ngModelChange)="dday = $event" type="date" name="dday"
+          [ngModel]="dday | date:'yyyy-MM-dd'" >
+      </mat-form-field>
+    </div>
+
+    <div class="d-flex flex-column bd-highlight mb-5" fxFlex="43" fxFlex.lt-lg="19" >
+      <mat-form-field floatLabel="options.value.floatLabel">
+        <mat-label>Dday Extended Name</mat-label>
+        <input matInput placeholder="Dday Extended Name" type="text"  name="ddayExtendedName"
+          [(ngModel)]="ddayExtendedName" >
+      </mat-form-field> 
+    </div>
+
+    <div class="d-flex flex-column bd-highlight mb-5" fxFlex="29" fxFlex.lt-lg="19" >
+      <div class="input-group btn-group">
+        <button type="submit" (click)="DayTemplateSubmit()" class="form-control btn" style="height:40px;width:425px;background-color:black;color:whitesmoke" >D Day Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<form class="example-container" [formGroup]="Forms" *ngIf="DayTemplateSubmitHide">
+    <mat-form-field floatLabel="options.value.floatLabel">
+        <mat-label>Event Name</mat-label>
+        <input matInput placeholder="Event Name" type="Text"  formControlName="title" >
+    </mat-form-field>
+    <mat-form-field floatLabel="options.value.floatLabel">
+        <mat-label>Dday Start</mat-label>
+        <input matInput placeholder="Dday Start" type="date" formControlName="start" >
+    </mat-form-field>
+    <mat-form-field floatLabel="options.value.floatLabel">
+        <mat-label>Dday End</mat-label>
+        <input matInput placeholder="Dday End" type="date" formControlName="end" >
+    </mat-form-field>
+    <mat-form-field floatLabel="options.value.floatLabel">
+      <mat-label>Description</mat-label>
+      <input matInput placeholder="Description" type="Text" formControlName="description" >
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Main Desk</mat-label>
+        <select matNativeControl formControlName="color" name="color" required>
+
+          <option *ngFor="let car of Backup_Day" [value]="car.desk">
+            {{car.desk}}
+          </option>
+        </select>
+        <mat-error *ngIf="selectFormControl.hasError('required')">
+          This field is required
+        </mat-error>
+        <mat-hint>Color</mat-hint>
+    </mat-form-field>
+    <section class="example-section">
+      <mat-checkbox  class="example-margin" name="notification"  formControlName="notification" >Notification</mat-checkbox>
+    </section>
+
+    <br/>
+    <div class="input-group btn-group">
+      <button type="submit" (click)="FormSubmit()" class="form-control btn" style="height:40px;width:425px;background-color:black;color:whitesmoke" [disabled]="!Forms.valid">Submit</button>
+    </div>
+
+</form>
+
+<br /><br />
+<ngx-spinner></ngx-spinner>

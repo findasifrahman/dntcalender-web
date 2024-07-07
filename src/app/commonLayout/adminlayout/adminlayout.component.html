@@ -1,0 +1,91 @@
+<mat-sidenav-container fullscreen style="background-color: black; overflow-y: hidden !important;">
+    <mat-sidenav mode="side" #sidenav opened position="start" id="sidebar"
+    
+       [opened]="screenWidth > 840" [mode]="(screenWidth > 840) ? 'side' : 'over'" 
+
+       fixedInViewport="true">
+       <header style="padding-bottom: 30px;">
+        <a href="#" style="font-size: 18px;color:yellow">DNT Calendar</a>
+
+      </header>
+      
+       <li class="nav">
+        <a class="nav-link" style="display: inline-flex;"   [routerLink]='["/home"]'><i><mat-icon aria-hidden="false">home</mat-icon></i>Home</a>
+      </li>
+      <li class="nav">
+        <a [routerLink]='["/addCourse"]' [hidden]='hideNav' class="nav-link" style="display: inline-flex;" ><i><mat-icon aria-hidden="false">vpn_key</mat-icon></i>Add Course</a>
+      </li>
+      <li class="nav">
+        <a [routerLink]='["/listCourse"]' [hidden]='hideNav' class="nav-link" style="display: inline-flex;" ><i><mat-icon aria-hidden="false">speed</mat-icon></i> Course List</a>
+      </li>
+
+      <li class="nav">
+        <a [routerLink]='["/addForeign"]' [hidden]='hideNav' class="nav-link" style="display: inline-flex;" ><i><mat-icon aria-hidden="false">vpn_key</mat-icon></i>Add Foreign Course</a>
+      </li>
+      <li class="nav">
+        <a [routerLink]='["/listForeign"]' [hidden]='hideNav' class="nav-link" style="display: inline-flex;" ><i><mat-icon aria-hidden="false">speed</mat-icon></i> Foreign Course List</a>
+      </li>
+
+      <li class="nav">
+        <a [routerLink]='["/addEvent"]' [hidden]='hideNav' class="nav-link" style="display: inline-flex;" ><i><mat-icon aria-hidden="false">launch</mat-icon></i>Add Event</a>
+      </li>
+      <li class="nav">
+        <a [routerLink]='["/listEvent"]' [hidden]='hideNav' class="nav-link" style="display: inline-flex;" ><i><mat-icon aria-hidden="false">block</mat-icon></i>Event List</a>
+      </li>   
+      <li class="nav">
+        <a [routerLink]='["/addTemplate"]' [hidden]='hideNav' class="nav-link" style="display: inline-flex;" ><i><mat-icon aria-hidden="false">launch</mat-icon></i>Add Template</a>
+      </li>
+      <li class="nav">
+        <a [routerLink]='["/listTemplate"]' [hidden]='hideNav' class="nav-link" style="display: inline-flex;" ><i><mat-icon aria-hidden="false">block</mat-icon></i>Template List</a>
+      </li>
+
+
+      <li class="nav" [hidden] = "isShowSettingsli">
+        <a class="nav-link nav-dropdown-toggle" style="display: inline-flex;"  (click) = toggleDisplaySettings()>
+          <i><mat-icon aria-hidden="false">indeterminate_check_box</mat-icon></i> Settings
+        </a>
+        <div style="padding-top: 0 !important;" class="nav-link nav-dropdown-toggle" [hidden] = "isShowSettings">
+          <li class="nav">
+            <a [routerLink]='["/addUser"]' class="nav-link" style="display: inline-flex;" ><i><mat-icon aria-hidden="false">launch</mat-icon></i>Add User</a>
+          </li>
+          <li class="nav">
+            <a [routerLink]='["/listUser"]' class="nav-link" style="display: inline-flex;" ><i><mat-icon aria-hidden="false">block</mat-icon></i>User List</a>
+          </li>
+
+          <li class="nav-item">
+            <a style="text-align:left;display: inline-flex;" class="nav-link" [routerLink]='["/addSchool"]'><i><mat-icon aria-hidden="false">airline_seat_individual_suite</mat-icon></i>Add School</a>
+          </li>
+          <li class="nav-item">
+            <a style="text-align:left;display: inline-flex;" class="nav-link" [routerLink]='["/listSchool"]'><i><mat-icon aria-hidden="false">zoom_out_map</mat-icon></i>School List</a>
+          </li>
+
+        </div>
+      </li>
+    </mat-sidenav>
+    <mat-sidenav-content style="background-color: '#ffffff'">
+      <mat-toolbar color="primary" style="background-color: black;">
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <li class="nav">
+           <a class="nav-link" [routerLink]='["/courseCalender"]' style="display: inline-flex;color: blanchedalmond;" >Course Calendar</a>
+        </li>
+        <li class="nav">
+          <a class="nav-link" [routerLink]='["/home"]' style="display: inline-flex;color: blanchedalmond;" >Event Calendar</a>
+        </li>
+        <li class="nav">
+          <a class="nav-link" [routerLink]='["/foreignCourse"]' style="display: inline-flex;color: blanchedalmond;" >Foreign Course</a>
+        </li>
+        <span class="toolbar-spacer"></span>
+        <li class="nav">
+          <a class="nav-link" [routerLink]='["/logout"]' style="display: inline-flex;color: cornsilk;" >Logout</a>
+        </li> 
+      </mat-toolbar>
+      <div class="main-content"> 
+            <router-outlet></router-outlet>
+       </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+
+

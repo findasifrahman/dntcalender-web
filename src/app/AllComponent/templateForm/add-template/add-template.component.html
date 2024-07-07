@@ -1,0 +1,110 @@
+
+<div class="card" style="margin-top: 20px;margin-left: 0;background-color: rgba(2, 2, 2, 0.9);">
+    <div class="card-body" style="text-align: center;color:blanchedalmond;">
+        Add Template
+    </div>
+</div>
+<br />
+
+
+
+    <form class="example-container" [formGroup]="Forms">
+        <div fxLayout="row wrap" fxLayout.xs="column"  fxLayoutAlign="space-between stretch" style="margin-top: 5px;">
+            <div class="d-flex flex-column bd-highlight mb-5" fxFlex="69" fxFlex.lt-lg="19" >
+                <mat-form-field floatLabel="options.value.floatLabel">
+                    <mat-label>D Day Event</mat-label>
+                    <input matInput placeholder="Event Name" type="Text"  formControlName="ddayevent" >
+                </mat-form-field>
+            </div>
+            <div class="d-flex flex-column bd-highlight mb-5" fxFlex="28" fxFlex.lt-lg="19" >
+              <mat-form-field>
+                <mat-label>Main Desk</mat-label>
+                <select matNativeControl formControlName="color" name="color" required>
+        
+                  <option *ngFor="let car of Backup_Day" [value]="car.desk">
+                    {{car.desk}}
+                  </option>
+                </select>
+                <mat-error *ngIf="selectFormControl.hasError('required')">
+                  This field is required
+                </mat-error>
+                <mat-hint>Color</mat-hint>
+              </mat-form-field>
+          </div>
+        </div>
+    </form>
+
+
+    <form class="example-container" [formGroup]="Forms2">
+        <div fxLayout="row wrap" fxLayout.xs="column"  fxLayoutAlign="space-between stretch" style="margin-top: 1px;padding-top: 0 !important; padding-bottom: 0 !important;">
+              <div class="d-flex flex-column bd-highlight mb-5" fxFlex="22" fxFlex.lt-lg="19" >
+                <mat-form-field floatLabel="options.value.floatLabel">
+                    <mat-label>Day</mat-label>
+                    <input matInput placeholder="Day" type="number"  formControlName="day" >
+                </mat-form-field>
+              </div>
+
+              <div class="d-flex flex-column bd-highlight mb-5" fxFlex="42" fxFlex.lt-lg="19" >
+                <mat-form-field floatLabel="options.value.floatLabel">
+                    <mat-label>Activity</mat-label>
+                    <input matInput placeholder="Activity" type="Text"  formControlName="activity" >
+                </mat-form-field>
+              </div>
+              <div class="d-flex flex-column bd-highlight mb-5" fxFlex="10" fxFlex.lt-lg="19" >
+                <section class="example-section">
+                  <mat-checkbox  class="example-margin" name="notification"  formControlName="notification" >Notification</mat-checkbox>
+                </section>
+              </div>
+            <div class="d-flex flex-column bd-highlight mb-5" fxFlex="14" fxFlex.lt-lg="19" >
+                <div class="input-group btn-group">
+                    <button type="submit" (click)="addItem()" class="form-control btn" style="height:40px;width:425px;background-color:black;color:whitesmoke" [disabled]="!Forms2.valid">Add Item</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="input-group btn-group">
+      <button type="submit" (click)="FormSubmit()" class="form-control btn" style="height:40px;width:425px;background-color:black;color:whitesmoke" [disabled]="!Forms.valid">Submit</button>
+    </div>
+
+
+<div fxLayout="row wrap" fxLayout.xs="column"  fxLayoutAlign="space-between stretch" style="margin-left: 5px;margin-top: 20px;" id="print-section3">
+ 
+    <div class="d-flex flex-column bd-highlight mb-5" fxFlex="99" fxFlex.lt-lg="99" >
+  
+  
+      <table class="table" style="font-size: small;">
+          <thead>
+            <tr>
+              <th scope="col" style="color:rgba(0, 0, 0, 0.4);">#</th>
+              <th scope="col" style="color:rgba(0, 0, 0, 0.8);text-align: center;">Day</th>
+              <th scope="col" style="color:rgba(0, 0, 0, 0.8);text-align: center;">Activity</th>
+              <th scope="col" style="color:rgba(0, 0, 0, 0.8);text-align: center;">Notification</th>
+              <th scope="col" style="color:rgba(0, 0, 0, 0.4);text-align: end;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let c of myarr; index as i">
+              <th scope="row" style="color:rgba(0, 0, 0, 0.4);">{{ i + 1 }}</th>
+              <td style="color:rgba(0, 0, 0, 0.8);text-align: center;">
+                <ngb-highlight [result]="c.day" ></ngb-highlight>
+              </td>
+              <td style="color:rgba(0, 0, 0, 0.8);text-align: center;color:rgba(185, 24, 24, 0.852)">
+                <ngb-highlight [result]="c.activity" ></ngb-highlight>
+              </td>
+              <td style="color:rgba(0, 0, 0, 0.8);text-align: center;color:rgba(185, 24, 24, 0.852)">
+                <ngb-highlight [result]="c.notification" ></ngb-highlight>
+              </td>
+              <td style="color:rgba(31, 13, 13, 0.8);text-align: end;">
+                <button mat-button color="warn" style="font-size: small;margin: 0 !important;padding: 0 !important;" (click)="remove(i)">
+                    <mat-icon style="font-size: medium;margin: 0 !important;padding: 0 !important;" >delete</mat-icon>
+                  </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+  
+  
+    </div>
+  
+  </div>

@@ -1,0 +1,55 @@
+<div class="card" style="margin-top: 20px;margin-left: 0;background-color: rgba(2, 2, 2, 0.9);">
+    <div class="card-body" style="text-align: center;color:blanchedalmond;">
+        Event Calender
+    </div>
+</div>
+
+<full-calendar *ngIf="initialized"  id="calendar"
+    #calendar
+    [options]="calendarOptions"
+    [plugins]="options.plugins"
+    [editable]="true"
+
+    [height]="'parent'"
+    [dir]="'ltr'"
+    [events]="eventsModel"
+    >
+</full-calendar>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" style="padding-left: 500px;text-align: center;color:yellow;">{{title }}</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="d-flex flex-column bd-highlight mb-5" fxFlex="99" fxFlex.lt-lg="99" >
+
+            <table class="table" style="font-size: larger;">
+                <thead>
+                  <tr>
+                    <th scope="col" style="color:white;">#</th>
+                    <th scope="col" style="color:rgba(0, 0, 0, 0.8);text-align: left;color: yellow;">Event</th>
+                    <th scope="col" style="color:rgba(0, 0, 0, 0.8);text-align: right;color: white;">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let c of eventarr; index as i">
+                    <th scope="row" style="color:white;">{{ i + 1 }}</th>
+
+                    <td style="color:rgba(0, 0, 0, 0.9);text-align: left;color: yellow;">
+                      <ngb-highlight [result]="c.title" ></ngb-highlight>
+                    </td>
+                    <td style="color: white;;text-align: right;">
+                      <ngb-highlight [result]="c.description" ></ngb-highlight>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        
+        
+          </div>
+    </div>
+
+  </ng-template>

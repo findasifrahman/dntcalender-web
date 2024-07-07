@@ -1,0 +1,24 @@
+
+<div class="card" style="margin-top: 20px;margin-left: 0;background-color: rgba(2, 2, 2, 0.9);">
+    <div class="card-body" style="text-align: center;color:blanchedalmond;">
+        Add School
+    </div>
+</div>
+<br />
+
+
+<form class="example-container" [formGroup]="Forms" >
+    <mat-form-field floatLabel="options.value.floatLabel">
+        <mat-label>School Name</mat-label>
+        <input matInput placeholder="Event Name" type="Text"  formControlName="schoolName" >
+    </mat-form-field>
+
+    <br/>
+    <div class="input-group btn-group">
+      <button type="submit" (click)="FormSubmit()" class="form-control btn" style="height:40px;width:425px;background-color:black;color:whitesmoke" [disabled]="!Forms.valid">Submit</button>
+    </div>
+
+</form>
+
+<br /><br />
+<ngx-spinner></ngx-spinner>
